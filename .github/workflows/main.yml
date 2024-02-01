@@ -48,17 +48,16 @@ jobs:
           pip install datasets==2.15.0
           pip install .
           conda list
-          pytest -s -v test\
-             --junitxml=pytest.xml\
-             --cov-report=term-missing:skip-covered\
-             --cov=app | tee pytest-coverage.txt
+          pytest -s -v test --junit-xml=test-results.xml
 
       # Comment test result on commmit
-      - name: Pytest coverage comment
-        uses: MishaKav/pytest-coverage-comment@main
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          pytest-coverage-path: ./pytest-coverage.txt
-          junitxml-path: ./pytest.xml
+          files: |
+            test-results.xml
+            test-results/**/*.xml
+            test-results/**/*.json
 
       # Commit & push changes
       - name: Check for modified files
