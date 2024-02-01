@@ -72,6 +72,3 @@ jobs:
           branch: ${{ github.head_ref }}
           github_token: ${{ secrets.ACCESS_TOKEN }}
           force: true
-          
-
-      
