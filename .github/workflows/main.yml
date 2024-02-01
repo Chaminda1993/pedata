@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code...
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Check files using the black formatter
         id: action_black
@@ -27,6 +27,16 @@ jobs:
         with:
           args: "--fix --no-unsafe-fixes --no-cache"
 
+      - name: Cache conda
+        uses: actions/cache@v3
+        env:
+          # Increase this value to reset cache if etc/example-environment.yml has not changed
+          CACHE_NUMBER: 0
+        with:
+          path: ~/conda_pkgs_dir
+          key:
+            ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{
+            hashFiles('etc/example-environment.yml') }}
       - uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
@@ -41,7 +51,16 @@ jobs:
           pip install datasets==2.15.0
           pip install .
           conda list
-          pytest -s -v test
+          pytest -s -v test\
+             --junitxml=pytest.xml\
+             --cov-report=term-missing:skip-covered\
+             --cov=app tests/ | tee pytest-coverage.txt
+
+      - name: Pytest coverage comment
+        uses: MishaKav/pytest-coverage-comment@main
+        with:
+          pytest-coverage-path: ./pytest-coverage.txt
+          junitxml-path: ./pytest.xml
           
 
       
