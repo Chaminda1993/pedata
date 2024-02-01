@@ -8,7 +8,6 @@ import shutil
 from pathlib import Path
 from datasets import load_dataset, DownloadConfig
 
-
 # method
 def rename_hub_dataset_column(repo_id: str, column_name_mapping: dict[str:str]) -> None:
     """Rename a column in a dataset on the hub
@@ -46,13 +45,11 @@ def rename_hub_dataset_column(repo_id: str, column_name_mapping: dict[str:str]) 
 
     shutil.rmtree(cache_directory, ignore_errors=True)  # delete cache
 
-
 def validate_dataset_columns_names():
     # TODO: implement and use while creating dataset in upload.py and preprocess dataset
     """Check that the column names do not contain any forbidden characters"""
-    forbidden_characters = [" ", "/", "."]
+    # forbidden_characters = [" ", "/", "."]
     pass
-
 
 if __name__ == "__main__":
     # parse arguments

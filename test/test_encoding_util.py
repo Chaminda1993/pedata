@@ -12,12 +12,12 @@ class EncodingSpec:
 class TestEncodingUtil:
     def test_find_function_order(self):
         # Temporary encoding functions for tests
-        f1 = lambda x: x
-        f2 = lambda x: None
-        f3 = lambda x: 1
-        f4 = lambda x: x
-        f5 = lambda x: x
-        f6 = lambda x: x
+        def f1(x):return x
+        def f2(x):return None
+        def f3(x):return 1
+        def f4(x):return x
+        def f5(x):return x
+        def f6(x):return x
 
         encoders = [
             EncodingSpec(["aa_len"], ["aa_seq"], f1),

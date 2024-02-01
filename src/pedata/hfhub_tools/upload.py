@@ -69,7 +69,6 @@ from ..util import get_target
 from ..visual import plot_target_distributions
 from . import ReadMe
 
-
 class DatasetUpload:  # FIXME: change the name of this class
     """A class to handle dataset creation, update and upload to Hugging Face Hub."""
 
@@ -117,7 +116,6 @@ class DatasetUpload:  # FIXME: change the name of this class
         self._update_just_readme = update_just_readme
         self._needed_encodings = needed_encodings  # TODO - add a setter for this
         self._init_process(overwrite_repo)
-
     def _init_process(self, overwrite_repo: bool = False):
         if self._csv_filename is not None:
             if repo_exists(self._repo, repo_type="dataset") and not overwrite_repo:
@@ -138,19 +136,15 @@ class DatasetUpload:  # FIXME: change the name of this class
                 needed_encodings=self._needed_encodings,
                 cache_dir=self._cache_dir,
             )
-
     @property
     def local_path(self) -> str:
         return os.path.join(self._local_dir, self._repo)
-
     @property
     def figure_path(self) -> str:
         return os.path.join(self.local_path, "figures")
-
     @property
     def cache_dir(self) -> str:
         return self._cache_dir
-
     def process(self, verbose: bool = True, readme: bool = False) -> None:
         """Run the creation, update and upload pipeline.
         FIXME - from Ingmar: the usage of this class I've always seen only creation of an object directly followed by a call to this method. If this is the only usage then a simple function definition / function call would be better.
@@ -198,10 +192,8 @@ class DatasetUpload:  # FIXME: change the name of this class
 
         # clear the cache
         shutil.rmtree(self._cache_dir, ignore_errors=True)
-
     def make_read_me_figures(self) -> None:
         plot_target_distributions(self.targets, savedir=self.local_path)
-
     def update_readme(self) -> None:
         """Update the readme file"""
         readme = ReadMe(local_dir=self.local_path)
@@ -217,13 +209,11 @@ class DatasetUpload:  # FIXME: change the name of this class
         readme.update_readme_figures(figure_path=self.figure_path)
         readme.push_figures_to_hub()
         readme.push_readme_to_hub(repo_id=self._repo)
-
     def __repr__(self) -> None:
         """Print the processing to be done or the processing done."""
 
-        def print_list(l):
-            return "\n".join([f" - {item}" for item in l])
-
+        def print_list(lx):
+            return "\n".join([f" - {item}" for item in lx])
         if "_dataset" not in self.__dict__:
             return f"""
 ------------------------------------
@@ -248,13 +238,11 @@ Available targets:
 Available splits:
 {print_list(self.available_splits)}
             """
-
     @property
     def target_names(self) -> list[str]:
         """get all target names"""
         targets = get_target(self._dataset, as_dict=True)
         return list(targets.keys())
-
     @property
     def targets(self) -> dict[Sequence[str], np.ndarray]:
         """Getting all targets
@@ -262,12 +250,10 @@ Available splits:
             Dictionary of targets with the target names as keys and the target values as values
         """
         return get_target(self._dataset, as_dict=True)
-
     @property
     def available_splits(self) -> list[str]:
         """get all available splits"""
         return [col for col in self._dataset.column_names if "split" in col]
-
     @property
     def feature_names(self) -> list[str]:
         """get all features names"""
@@ -280,12 +266,10 @@ Available splits:
                 or col in ["index"]
             )
         ]
-
     @property
     def datapoints_n(self) -> list[int]:
         """get the number of datapoints"""
         return [self._dataset.num_rows]
-
     @staticmethod
     def create_and_preprocess(
         csv_filename: str | Path, needed_encodings: list[str]
@@ -306,7 +290,6 @@ Available splits:
         )
 
         # print(f"Dataset '{repo}' successfully pushed to Hugging Face.")
-
     @staticmethod
     def pull_and_update(
         repo: str,
@@ -353,7 +336,6 @@ Available splits:
             return dataset
         else:
             return transform_pipeline(dataset, needed_encodings)
-
     @property
     def files_in_repo(self) -> list[str]:
         """Get all files in a HuggingFace dataset repository folder.
@@ -363,7 +345,6 @@ Available splits:
             list: List of files in the data/ folder of the repository.
         """
         return list_repo_files(repo_id=self._repo, repo_type="dataset")
-
     def _get_hub_data_folder_files(self) -> list[str]:
         """Get all files in a HuggingFace dataset repository data/ folder.
         Args:
@@ -372,7 +353,6 @@ Available splits:
             list: List of files in the data/ folder of the repository.
         """
         return [file for file in self.files_in_repo if "data/" in file]
-
     def _repo_get_file_list_split_cleanup(self) -> list[str]:
         """Delete all files in a HuggingFace dataset repository.
         Checks the difference between the list of files in the repo and the list of files in the dataset directory using the load_dataset methods.
@@ -391,7 +371,6 @@ Available splits:
                     list_of_files_to_delete.append(dataset_file)
 
         return list_of_files_to_delete
-
     def _clear_hub_dataset_files(self, list_of_files_to_delete: list = []) -> None:
         """Delete all files in a HuggingFace dataset repository data/ folder.
         Args:
@@ -415,7 +394,6 @@ Available splits:
 
         else:
             print(f"No dataset files to delete from {self._repo}")
-
     @staticmethod
     def save(dataset: Dataset, local_path: str) -> None:
         """Save a dataset to a local directory and push it to Hugging Face.
@@ -425,7 +403,6 @@ Available splits:
 
         # Save to a local directory
         dataset.save_to_disk(local_path)
-
     @staticmethod
     def push(dataset: Dataset, repo: str, split="whole_dataset") -> None:
         """Save a dataset to a local directory and push it to Hugging Face.
@@ -441,7 +418,6 @@ Available splits:
             split=split,
             embed_external_files=False,
         )
-
 
 if __name__ == "__main__":
     # parse arguments

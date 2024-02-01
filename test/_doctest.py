@@ -41,7 +41,6 @@ if RUN_ALL:
 # ========== encoding package ==========
 if True:
     from pedata.encoding import (
-        base,
         embeddings,
         transform,
         transforms_graph,
@@ -67,7 +66,7 @@ if RUN_ALL:
 
 
 # ========== datasets package ========== #FIXME
-if True:
+# if True:
     # from pedata. import utils
     # from pedata. import vis
     # from pedata.preprocessing import split

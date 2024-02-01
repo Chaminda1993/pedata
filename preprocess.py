@@ -1,22 +1,7 @@
-from datetime import date
-from itertools import product
 
-from pathlib import Path
-import sklearn
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.preprocessing import FunctionTransformer
-import jax.numpy as np
-import pandas as pd
-import numpy as onp
-import re
-from typing import List, Union, Any
-import types
-import os
 import sys
-import json
-from pedata.disk_cache import load_similarity, preprocess_data
+from pedata.disk_cache import load_similarity
 from pedata.config.paths import data_exists, get_filename
-from pedata.config import encodings
 
 import argparse
 
@@ -62,7 +47,7 @@ def get_all_encodings(
         print("Reducing")
         if "," in target:
             target = target.split(",")
-        reduce_data(filename, aa_seqname, target, dna_seqname=dna_seqname)
+        # reduce_data(filename, aa_seqname, target, dna_seqname=dna_seqname)
 
 
 if __name__ == "__main__":

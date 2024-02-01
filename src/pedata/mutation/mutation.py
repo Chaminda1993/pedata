@@ -15,7 +15,6 @@ from ..integrity import check_dataset, check_mutation_namedtuple
 from ..constants import Mut
 from .mutation_util import convert_tuple_to_valid_namedtuple
 
-
 class Mutation:
     @staticmethod
     def sort_mutations_by_pos(mut: list[Mut]):
@@ -56,7 +55,6 @@ class Mutation:
             return sorted_mutations
 
         return mut  # Mutations are already ordered, return the original list
-
     @staticmethod
     def parse_variant_mutations(
         changes: str,
@@ -118,7 +116,6 @@ class Mutation:
         mutations = [convert_tuple_to_valid_namedtuple(m) for m in mutations]
 
         return mutations
-
     @staticmethod
     def parse_all_mutations(
         dataset: ds.Dataset,
@@ -191,7 +188,6 @@ class Mutation:
                 )
 
         return parsed, non_parsed_idx
-
     @staticmethod
     def combine_variant_mutations(
         mut1: list[Mut], mut2: list[Mut], check_validity: bool = True
@@ -272,7 +268,6 @@ class Mutation:
         combined_mutations = Mutation.sort_mutations_by_pos(combined_mutations)
 
         return combined_mutations
-
     @staticmethod
     def generate_variant_mutation_combinations(
         variants1: list[Mut], variants2: list[Mut]
@@ -308,7 +303,7 @@ class Mutation:
         # Check for non-empty lists
         if len(variants1) == 0 or len(variants2) == 0:
             raise ValueError(
-                f"Invalid input: Expected non empty lists of variant mutations"
+                "Invalid input: Expected non empty lists of variant mutations"
             )
 
         combined_mutations = []  # Stores all combined variant mutations
@@ -322,7 +317,6 @@ class Mutation:
 
         # Return combined mutations
         return combined_mutations
-
     @staticmethod
     def generate_variant_mutation_combinations_within_dataset(
         mut: list[Mut],
@@ -368,7 +362,7 @@ class Mutation:
 
         # Check for non-empty list
         if len(mut) == 0:
-            raise ValueError(f"Invalid input: Expected non empty list of mutations")
+            raise ValueError("Invalid input: Expected non empty list of mutations")
 
         # If a single mutation is the input
         if len(mut) == 1:
@@ -389,7 +383,6 @@ class Mutation:
                 rval.append(combined_mutations)
 
         return rval  # Return the final list containing all possible combinations
-
     @staticmethod
     def concat_mutations(mut: list[list[Mut]]) -> list[Mut]:
         """
@@ -418,7 +411,6 @@ class Mutation:
             rval.extend(m)
 
         return rval
-
     @staticmethod
     def get_parent_aa_seq(
         dataset: ds.Dataset, return_bool=False, return_idx=False
@@ -487,7 +479,6 @@ class Mutation:
             return wildtype_idx
         else:
             return dataset[seq_column][wildtype_idx]
-
     @staticmethod
     def get_parent_sketch_from_mutations(
         mut: list[Mut], fill_character: str = "*"
@@ -564,7 +555,6 @@ class Mutation:
 
         # Return the number of positions filled and the resulting parent sketch string
         return num_mut_pos, parent_sketch
-
     @staticmethod
     def estimate_offset(
         mut: list[Mut] | ds.Dataset,
@@ -606,19 +596,19 @@ class Mutation:
 
         """
 
-        input_mut = mut  # Stores the original dataset before further modifications
+        # input_mut = mut  # Stores the original dataset before further modifications
 
         # Handle Dataset input
         if isinstance(mut, ds.Dataset):
             # Find all existig columns
-            existing_columns = set(mut.features.keys())
-            if "aa_seq" in existing_columns:
-                if "aa_mut" in existing_columns:
-                    mut_column = "aa_mut"
+            # existing_columns = set(mut.features.keys())
+            # if "aa_seq" in existing_columns:
+            # if "aa_mut" in existing_columns:
+            # mut_column = "aa_mut"
 
-            if "dna_seq" in existing_columns:
-                if "dna_mut" in existing_columns:
-                    mut_column = "dna_mut"
+            # if "dna_seq" in existing_columns:
+            # if "dna_mut" in existing_columns:
+            # mut_column = "dna_mut"
 
             # Validate dataset
             check_dataset(mut)
@@ -627,8 +617,8 @@ class Mutation:
             )
 
             # Check if parsed mutation is empty
-            if len(parsed_mut) == 0:
-                raise ValueError(f"No parsed mutations found in dataset: \n{input_mut}")
+            # if len(parsed_mut) == 0:
+            #     raise ValueError(f"No parsed mutations found in dataset: \n{input_mut}")
 
             mut = Mutation.concat_mutations(parsed_mut)
 
@@ -724,7 +714,6 @@ class Mutation:
                     f"When processing mutation codes, multiple offsets seem to be plausible: {rval['offset']}. Cannot automaticcally decide for an offset."
                 )
             return rval["offset"][0]
-
     @staticmethod
     def apply_variant_mutations(
         mutations: list[Mut], parent: str, offset: int = 0, check_validity: bool = False
@@ -772,7 +761,6 @@ class Mutation:
             seq = seq[:pos] + m.targ + seq[pos + 1 :]
 
         return seq  # Return the mutated sequence
-
     @staticmethod
     def apply_all_mutations(
         mutations: ds.Dataset | list[list[Mut]],

@@ -55,13 +55,13 @@ def test_check_dataset():
     valid_dataset = ds.Dataset.from_dict(
         {"aa_seq": ["MLGLYITR", "MAGLYITR"], "target foo": [1, 2]}
     )
-    assert integrity.check_dataset(valid_dataset) == None
+    assert integrity.check_dataset(valid_dataset) is None
 
     # Test case 10: "dna_seq" has no missing values
     valid_dataset = ds.Dataset.from_dict(
         {"dna_seq": ["MLGLYITR", "MAGLYITR"], "target foo": [1, 2]}
     )
-    assert integrity.check_dataset(valid_dataset) == None
+    assert integrity.check_dataset(valid_dataset) is None
 
     # Test case 11: "aa_mut" column has missing values
     valid_dataset = ds.Dataset.from_dict(
@@ -71,7 +71,7 @@ def test_check_dataset():
             "target foo": [1, 2],
         }
     )
-    assert integrity.check_dataset(valid_dataset) == None
+    assert integrity.check_dataset(valid_dataset) is None
 
     # Test case 12: "dna_mut" column has missing values
     valid_dataset = ds.Dataset.from_dict(
@@ -81,7 +81,7 @@ def test_check_dataset():
             "target foo": [1, 2],
         }
     )
-    assert integrity.check_dataset(valid_dataset) == None
+    assert integrity.check_dataset(valid_dataset) is None
 
     # Test case 13: Missing column starting with keyword "target"
     invalid_dataset = ds.Dataset.from_dict(
