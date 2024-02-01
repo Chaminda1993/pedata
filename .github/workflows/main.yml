@@ -51,14 +51,10 @@ jobs:
           pytest -s -v test --junit-xml=test-results.xml
 
       # Comment test result on commmit
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
+      - name: Surface failing tests
+        uses: pmeier/pytest-results-action@main
         with:
-          github_token: ${{ secrets.ACCESS_TOKEN }}
-          files: |
-            test-results.xml
-            test-results/**/*.xml
-            test-results/**/*.json
+          path: test-results.xml
 
       # Commit & push changes
       - name: Check for modified files
