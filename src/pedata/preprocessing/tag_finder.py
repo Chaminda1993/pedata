@@ -24,7 +24,6 @@ tag_strip_csv: Strips tags from a .csv file and adds a report of the stripped ta
 clean_dataset: Cleans a huggingface dataset by converting sequences to protein and removing tags.
 """
 
-
 @dataclass
 class ProteinTag:
     """
@@ -205,7 +204,6 @@ class ProteinTag:
         )
         return info_string
 
-
 class ProteinTagHit(ProteinTag):
     """
     A container representing a hit of a tag in a query sequence. This is the class that will be returned when TagFinder
@@ -358,7 +356,6 @@ class ProteinTagHit(ProteinTag):
             f"Reference: {self.reference}\n"
         )
         return info_string
-
 
 class TagFinder:
     """
@@ -583,7 +580,6 @@ class TagFinder:
             else:
                 limit = self.margin_cutoff
             return distance <= limit
-
         # Find the maximum n-terminus cutoff and minimum c-terminus cutoff
         max_n_terminus = 0
         for h, hit in enumerate(sorted(tag_hits, key=lambda x: x.start)):
@@ -880,7 +876,7 @@ class TagFinder:
             removal_report = f"N-term: {n_terminal_tags} C-term: {c_terminal_tags}"
         else:
             found_tag = False
-            removal_report = f"N-term: None C-term: None"
+            removal_report = "N-term: None C-term: None"
 
         output = {
             "tags_found": found_tag,
@@ -1019,7 +1015,6 @@ class TagFinder:
         dataset = dataset.remove_columns("artificial_sequence")
 
         return dataset
-
 
 class SequenceCleaner:
     """
@@ -1269,7 +1264,6 @@ class SequenceCleaner:
             str(pd.DataFrame(self._tag_names)[0].value_counts()).split("\n")[1:-1]
         )
         return map_report
-
 
 if __name__ == "__main__":
     tag_finder = TagFinder()

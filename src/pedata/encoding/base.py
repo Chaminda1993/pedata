@@ -4,7 +4,6 @@ from typing import Union, Callable
 from sklearn.base import TransformerMixin
 from .transform import FixedSingleColumnTransform
 
-
 @dataclass
 class EncodingSpec(object):
     """Specification for column encoding."""
@@ -21,7 +20,6 @@ class EncodingSpec(object):
             self.provides = [self.provides]
         if isinstance(self.requires, str):
             self.requires = [self.requires]
-
 
 @dataclass
 class SklEncodingSpec(EncodingSpec):

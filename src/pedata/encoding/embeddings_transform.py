@@ -4,7 +4,6 @@ from scipy.linalg import fractional_matrix_power
 from sklearn.cluster import KMeans
 from typing import Union
 
-
 def linear_kernel(x: np.array, y: np.array) -> np.array:
     """
     Linear kernel
@@ -29,8 +28,9 @@ def linear_kernel(x: np.array, y: np.array) -> np.array:
     # Also to be married with the gpytorch kernels potentially.
     return x @ y.T
 
-
-def reshape_1hot(one_hot_array: Union[np.ndarray, list], len_seq: int, len_aa: int) -> np.ndarray:
+def reshape_1hot(
+    one_hot_array: Union[np.ndarray, list], len_seq: int, len_aa: int
+) -> np.ndarray:
     """Reshape a numpy array 1hot encoding of shape (len(df),len_seq*len_aa)
     to a numpy array of shape (len(df), len_seq, len_aa)
 
@@ -63,10 +63,11 @@ def reshape_1hot(one_hot_array: Union[np.ndarray, list], len_seq: int, len_aa: i
         try:
             one_hot_array = np.array(one_hot_array)
         except TypeError:
-            raise TypeError("one_hot_array should be a numpy array, a list or a compatible array type")
+            raise TypeError(
+                "one_hot_array should be a numpy array, a list or a compatible array type"
+            )
 
     return one_hot_array.reshape(len(one_hot_array), len_seq, len_aa)
-
 
 def kmers_mean_embeddings(emb_list: list, kmer_size: int) -> np.array:
     """
@@ -107,7 +108,6 @@ def kmers_mean_embeddings(emb_list: list, kmer_size: int) -> np.array:
         U[i, :] = np.mean(X, axis=0)
     U_norm = U / np.linalg.norm(U, axis=1)[:, None]
     return U, U_norm
-
 
 def kmer_embeddings_centers(emb_list_train: list, kmer_size: int) -> np.array:
     """
@@ -163,7 +163,6 @@ def kmer_embeddings_centers(emb_list_train: list, kmer_size: int) -> np.array:
     U1 = U / np.linalg.norm(U, axis=1)[:, None]
     return kmer_list, U1
 
-
 def rkhs_kmer_embeddings(
     kernel_fn, emb_list: list, kmer_size: int, nystrom_size: int
 ) -> np.array:
@@ -205,7 +204,8 @@ def rkhs_kmer_embeddings(
     )
     # normalize cluster centers
     l2_norm_centers = (
-        kmeans.cluster_centers_ / np.linalg.norm(kmeans.cluster_centers_, axis=1)[:, None]
+        kmeans.cluster_centers_
+        / np.linalg.norm(kmeans.cluster_centers_, axis=1)[:, None]
     )
     # compute kernel matrix
     K = kernel_fn(l2_norm_centers, l2_norm_centers)

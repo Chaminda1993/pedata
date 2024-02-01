@@ -4,7 +4,6 @@ from datasets import (
 from ..config import add_encodings
 from ..preprocessing import preprocessing_pipeline
 
-
 def transform_pipeline(
     dataset: Dataset,
     needed_encodings: list[str] = [],

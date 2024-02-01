@@ -35,6 +35,7 @@ Examples:
 
 ```
 """
+
 # FIXME: refactor this as a upload and update class -
 # create a pipeline which includes
 # - checking the dataset,
@@ -68,7 +69,6 @@ from ..disk_cache import preprocess_data
 from ..util import get_target
 from ..visual import plot_target_distributions
 from . import ReadMe
-
 
 class DatasetUpload:  # FIXME: change the name of this class
     """A class to handle dataset creation, update and upload to Hugging Face Hub."""
@@ -223,7 +223,6 @@ class DatasetUpload:  # FIXME: change the name of this class
 
         def print_list(l):
             return "\n".join([f" - {item}" for item in l])
-
         if "_dataset" not in self.__dict__:
             return f"""
 ------------------------------------
@@ -441,7 +440,6 @@ Available splits:
             split=split,
             embed_external_files=False,
         )
-
 
 if __name__ == "__main__":
     # parse arguments

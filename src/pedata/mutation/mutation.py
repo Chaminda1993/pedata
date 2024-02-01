@@ -5,6 +5,7 @@ The different methods allow to return the mutation saved as Named Tuple objects 
 The `Mut` objects are defined in `pedata.constants` module and contain information about the mutation (position, source, target).
 
 """
+
 from typing import Callable
 import re
 import datasets as ds
@@ -14,7 +15,6 @@ from copy import deepcopy
 from ..integrity import check_dataset, check_mutation_namedtuple
 from ..constants import Mut
 from .mutation_util import convert_tuple_to_valid_namedtuple
-
 
 class Mutation:
     @staticmethod
@@ -308,7 +308,7 @@ class Mutation:
         # Check for non-empty lists
         if len(variants1) == 0 or len(variants2) == 0:
             raise ValueError(
-                f"Invalid input: Expected non empty lists of variant mutations"
+                "Invalid input: Expected non empty lists of variant mutations"
             )
 
         combined_mutations = []  # Stores all combined variant mutations
@@ -368,7 +368,7 @@ class Mutation:
 
         # Check for non-empty list
         if len(mut) == 0:
-            raise ValueError(f"Invalid input: Expected non empty list of mutations")
+            raise ValueError("Invalid input: Expected non empty list of mutations")
 
         # If a single mutation is the input
         if len(mut) == 1:

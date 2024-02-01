@@ -1,7 +1,6 @@
 import datasets as ds
 from .constants import Mut, Mut_with_no_targ
 
-
 def check_dataset(df: ds.Dataset):
     """
     Function checks if the dataset is valid.
@@ -63,7 +62,6 @@ def check_dataset(df: ds.Dataset):
         raise KeyError(
             f"Columns are missing in the data file. In particular: {', '.join(missing_cols)}."
         )
-
 
 # Validate namedtuple mutation
 def check_mutation_namedtuple(m: Mut):

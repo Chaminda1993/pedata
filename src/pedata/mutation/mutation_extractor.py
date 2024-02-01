@@ -1,9 +1,9 @@
 """ The mutation_extractor module contains functions for extracting mutations from sequences."""
+
 from typing import Iterable
 from ..constants import Mut
 from .mutation_util import convert_tuple_to_valid_namedtuple
 from .mutation_converter import convert_all_variant_mutations_to_str
-
 
 def extract_mutation_namedtuples_from_sequences(
     variant_seq_str: list[str], parent: str, offset: int = 0
@@ -82,7 +82,6 @@ def extract_mutation_namedtuples_from_sequences(
         changed_mut.append(mutation)
 
     return changed_mut, invalid_var_seq
-
 
 def extract_mutation_str_from_sequences(
     variant_seq_str: Iterable[str],

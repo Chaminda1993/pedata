@@ -6,7 +6,6 @@ import math
 from .config.encoding_specs import add_encodings
 from typing import Union
 
-
 class Transformer:
     """
     A dummy class to be used as a placeholder for the transformer in Encoder class.
@@ -34,7 +33,6 @@ class Transformer:
             return x
         else:
             return torch.tensor(x).unsqueeze(-1)
-
 
 class Encoder:
     """
@@ -87,7 +85,6 @@ class Encoder:
             Transformed input data as a Pytorch tensor.
         """
         return self.transformer.transform(x[self.in_embedding_name])
-
 
 class Dataloader(torch.utils.data.Dataset):
     """
@@ -209,7 +206,9 @@ class Dataloader(torch.utils.data.Dataset):
 
         index = self.shuffle_map[
             index
-            * self.batch_size : min((index + 1) * self.batch_size, len(self.shuffle_map))
+            * self.batch_size : min(
+                (index + 1) * self.batch_size, len(self.shuffle_map)
+            )
         ]
 
         X = {}

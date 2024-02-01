@@ -1,6 +1,5 @@
 from collections import namedtuple
 
-
 # Mutation namedtutple
 Mut = namedtuple("Mut", "pos src targ")
 

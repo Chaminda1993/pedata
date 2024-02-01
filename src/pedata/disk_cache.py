@@ -11,7 +11,6 @@ from .mutation.mutation import Mutation
 from .transform import transform_pipeline
 import fsspec
 
-
 def _read_csv_ignore_case(file_path: str) -> pd.DataFrame:
     """Reads a CSV file with a case-insensitive match
 
@@ -44,7 +43,6 @@ def _read_csv_ignore_case(file_path: str) -> pd.DataFrame:
     # Use pd.read_csv with the found file path
     return pd.read_csv(matching_file_path)
 
-
 def read_dataset_from_file(filename: str) -> Dataset:
     """Reads a CSV, Excel or Parquet file and return a HuggingFace dataset.
     Args:
@@ -74,7 +72,6 @@ def read_dataset_from_file(filename: str) -> Dataset:
 
     return Dataset.from_pandas(df)
 
-
 def save_dataset_as_csv(
     dataset: DatasetDict | Dataset | pd.DataFrame,
     filename: str | Path,
@@ -101,7 +98,6 @@ def save_dataset_as_csv(
         # save as csv
         dataset.to_csv(filename, index=False)
 
-
 def get_missing_values(dataset: Dataset, feature: str) -> list[bool]:
     """get missing values in the `feature` column
 
@@ -115,7 +111,6 @@ def get_missing_values(dataset: Dataset, feature: str) -> list[bool]:
     """
     df = dataset.to_pandas()
     return df.loc[:, feature].isna() | df.loc[:, feature].isnull()
-
 
 def fill_missing_sequences(dataset: Dataset, feature: str) -> Dataset:
     """Fill missing values in the `feature` column
@@ -136,7 +131,6 @@ def fill_missing_sequences(dataset: Dataset, feature: str) -> Dataset:
         ).loc[missing_values, feature]
 
     return Dataset.from_pandas(df)
-
 
 def hfds_from_pydict(
     dataset_dict: dict,
@@ -173,7 +167,6 @@ def hfds_from_pydict(
         return dataset.DatasetDict({"whole_dataset": dataset})
     else:
         return dataset
-
 
 def preprocess_data(
     filename: str | Path,
@@ -239,7 +232,6 @@ def preprocess_data(
 
     # Return the processed dataset
     return dataset
-
 
 def load_similarity(
     alphabet_type: str,
