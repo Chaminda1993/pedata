@@ -46,3 +46,7 @@ jobs:
           output: test-summary.md
           show: "all"
           paths: test/**.py
+
+      - run: |
+          ls -la
+          cat test-summary.md
