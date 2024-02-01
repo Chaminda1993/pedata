@@ -27,26 +27,21 @@ jobs:
         with:
           args: "--fix --no-unsafe-fixes --no-cache"
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: conda-incubator/setup-miniconda@v3
         with:
+          auto-update-conda: true
           python-version: 3.11
-      - name: Install dependencies
+
+      - name: Bash
+        shell: bash -el {0}
         run: |
-          python -m pip install --upgrade pip setuptools wheel
-          pip install .
+          conda info
+          conda install pip
+          pip install pytest pytest-cov pytest-html
           pip install datasets==2.15.0
-          pip list
+          pip install .
+          conda list
+          pytest -s -v test
+          
 
-      - name: Run PyTest
-        uses: dariocurr/pytest-summary@main
-        with:
-          extensions: pytest-asyncio pytest-cov
-          options: -vv -s
-          output: test-summary.md
-          show: "all"
-          paths: test/**.py
-
-      - run: |
-          ls -la
-          cat test-summary.md
+      
