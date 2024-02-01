@@ -1,4 +1,4 @@
-name: PyTest on action
+name: Lint & PyTest on action
 on: 
   pull_request:
     types:
@@ -8,12 +8,16 @@ on:
     branches:
       - main
 jobs:
-  run_pytest:
+  run:
     runs-on: ubuntu-latest
     steps:
+      # Checkout codebase
       - name: Checkout code...
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
 
+      # Black formatter execution
       - name: Check files using the black formatter
         id: action_black
         uses: psf/black@stable
@@ -22,26 +26,19 @@ jobs:
           src: "./src"
           jupyter: true
           
+      # Ruff linter execution
       - name: Check files using the Ruff linter
         uses: chartboost/ruff-action@v1
         with:
           args: "--fix --no-unsafe-fixes --no-cache"
 
-      - name: Cache conda
-        uses: actions/cache@v3
-        env:
-          # Increase this value to reset cache if etc/example-environment.yml has not changed
-          CACHE_NUMBER: 0
-        with:
-          path: ~/conda_pkgs_dir
-          key:
-            ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{
-            hashFiles('etc/example-environment.yml') }}
+      # Setup Conda env
       - uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
           python-version: 3.11
 
+      # Run PyTest 
       - name: Bash
         shell: bash -el {0}
         run: |
@@ -56,11 +53,30 @@ jobs:
              --cov-report=term-missing:skip-covered\
              --cov=app | tee pytest-coverage.txt
 
+      # Comment test result on commmit
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
         with:
           pytest-coverage-path: ./pytest-coverage.txt
           junitxml-path: ./pytest.xml
+
+      # Commit & push changes
+      - name: Check for modified files
+        id: git-check
+        run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
+      - name: Commit changes
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -a -m "Add changes"
+      - name: Push changes
+        if: steps.git-check.outputs.modified == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          branch: ${{ github.head_ref }}
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          force: true
           
 
       
