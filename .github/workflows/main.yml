@@ -32,21 +32,20 @@ jobs:
         with:
           args: "--fix --no-unsafe-fixes --no-cache"
 
-      # Setup Conda env
-      - uses: conda-incubator/setup-miniconda@v3
+      # Setup Python environtment
+      - uses: actions/setup-python@v5
         with:
-          auto-update-conda: true
-          python-version: 3.11
+          python-version: '3.11'
+          cache: 'pip'
+      - run: |
+          pip install .
+          pip install pytest pytest-cov pytest-html
+          pip install datasets==2.15.0
 
       # Run PyTest 
       - name: Bash
         shell: bash -el {0}
         run: |
-          conda info
-          conda install pip
-          pip install pytest pytest-cov pytest-html
-          pip install datasets==2.15.0
-          pip install .
           conda list
           pytest -s -v test --junit-xml=test-results.xml
 
