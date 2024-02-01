@@ -53,11 +53,5 @@ pedata = ["*.csv", "*.json"]
 
 
 ################### RUFF ######################
-[tool.ruff]
-exclude = [
-    # Exclude specific files or directories (modify as needed):
-    "E731",
-    "E711",
-]
-# Optionally, force exclusions for explicitly passed files:
-force-exclude = true
+[tool.ruff.lint.per-file-ignores]
+"foofile.py" = ["E731", "E711", "E999", "F841", "E741", "E841", "F821"]
