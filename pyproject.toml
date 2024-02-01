@@ -50,3 +50,14 @@ pedata = ["*.csv", "*.json"]
 
 # ... other project metadata fields as specified in:
 #     https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
+
+
+################### RUFF ######################
+[tool.ruff]
+exclude = [
+    # Exclude specific files or directories (modify as needed):
+    "E731",
+    "E711",
+]
+# Optionally, force exclusions for explicitly passed files:
+force-exclude = true
