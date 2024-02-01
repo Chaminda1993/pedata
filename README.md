@@ -12,3 +12,4 @@ To register our git hooks, in the repository root execute
 $ git config --local core.hooksPath .githooks/
 ```# pedata
 # pedata
+# pedata
