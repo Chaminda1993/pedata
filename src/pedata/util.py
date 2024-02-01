@@ -10,6 +10,7 @@ The util module contains utility functions for HuggingFace datasets such as:
 
 ============ util.py ===========
 """
+
 from typing import Callable, Sequence, Literal, Optional
 from dataclasses import dataclass
 import datasets as ds
@@ -17,7 +18,6 @@ from datasets import Dataset, load_dataset, concatenate_datasets
 import numpy as np
 import torch
 from math import prod
-
 
 __all__ = [
     "OptimizationObjective",
@@ -30,7 +30,6 @@ __all__ = [
     "append_summary_variable",
     "DatasetHandler",
 ]
-
 
 @dataclass
 class OptimizationObjective:
@@ -61,7 +60,6 @@ class OptimizationObjective:
     aim_for: np.float16 | None = None  # target value for direction == 'fix'
     weight: np.uint8 = np.uint8(1)  # weight for the objective
 
-
 def load_full_dataset(dataset_name: str) -> Dataset:
     """
     Load a full dataset rather than a specific split of the dataset
@@ -73,7 +71,6 @@ def load_full_dataset(dataset_name: str) -> Dataset:
     dataset = load_dataset(dataset_name)
     full_dataset = concatenate_datasets([dataset[split] for split in dataset])
     return full_dataset
-
 
 def get_target_columns(dataset: ds.Dataset) -> Sequence[str]:
     """
@@ -104,7 +101,6 @@ def get_target_columns(dataset: ds.Dataset) -> Sequence[str]:
         raise TypeError(
             "Invalid input: try again with a valid dataset to extract target columns."
         )
-
 
 def get_target(
     dataset: ds.Dataset,
@@ -168,7 +164,6 @@ def get_target(
     else:
         return {k: normalization(targ_values.T[i]) for i, k in enumerate(targ_keys)}
 
-
 def adjust_single_target_maximization(
     target_value: np.ndarray,
     target_opt_obj: OptimizationObjective,
@@ -215,7 +210,6 @@ def adjust_single_target_maximization(
         return -np.abs(
             target_value - target_opt_obj.aim_for
         )  # Adjust the target variable to get close to a fixed value if the objective is fixed
-
 
 def adjust_all_targets_maximization(
     dataset: ds.Dataset, objectives: dict[str, OptimizationObjective]
@@ -286,7 +280,6 @@ def adjust_all_targets_maximization(
     # Return the adjusted dataset
     return dataset
 
-
 def zscore(
     array: np.ndarray, mean: np.ndarray | None = None, std: np.ndarray | None = None
 ) -> np.ndarray:
@@ -331,7 +324,6 @@ def zscore(
 
     return normalized_array
 
-
 def de_zscore_predictions(
     zs_pred_means: np.ndarray | None = None,
     zs_pred_stds: np.ndarray | None = None,
@@ -369,7 +361,6 @@ def de_zscore_predictions(
 
     else:
         return de_zs_pred_means
-
 
 def get_summary_variable(
     dataset: ds.Dataset,
@@ -440,7 +431,6 @@ def get_summary_variable(
     # Return the summary variable
     return summary
 
-
 def append_summary_variable(
     dataset: ds.Dataset,
     normalization: Callable[[np.ndarray], np.ndarray] = zscore,
@@ -495,7 +485,6 @@ def append_summary_variable(
                 dataset, normalization=normalization, objectives=objectives
             ),
         )
-
 
 class DatasetHandler(object):
     """Class for handling datasets in HuggingFace format.
@@ -573,9 +562,11 @@ class DatasetHandler(object):
         hf_ds = hf_ds.with_format("torch")
         conc_tensor = torch.cat(
             [
-                hf_ds[k].reshape(len(hf_ds[k]), -1)
-                if len(self.metadata[k]["shape"]) > 1
-                else hf_ds[k][:, None]
+                (
+                    hf_ds[k].reshape(len(hf_ds[k]), -1)
+                    if len(self.metadata[k]["shape"]) > 1
+                    else hf_ds[k][:, None]
+                )
                 for k in self.features
             ],
             dim=-1,
@@ -622,7 +613,6 @@ class DatasetHandler(object):
         for f in feat:
             rval.extend(list(range(self.idx[f].start, self.idx[f].stop)))
         return tuple(rval)
-
 
 if __name__ == "__main__":
     pass

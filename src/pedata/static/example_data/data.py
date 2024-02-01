@@ -18,7 +18,6 @@ dna_example_1_missing_target = {
     "dna_seq": ["GCTCCG", "GCTCCT", "GCGCCG"],
 }
 
-
 dna_example_2_missing_val = {
     "dna_mut": [
         "WT",
@@ -418,7 +417,6 @@ dataset_dict_class = {
     ],
 }
 
-
 class RegressionToyDataset:
     """Toy dataset for regression with the needed encodings"""
 
@@ -463,7 +461,6 @@ class RegressionToyDataset:
     def test(self):
         """returns the test split of the dataset"""
         return self._dataset["test"]
-
 
 class ClassificationToyDataset:
     """Toy dataset for regression with the needed encodings"""

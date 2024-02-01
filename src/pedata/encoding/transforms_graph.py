@@ -8,7 +8,6 @@ import pandas as pd
 
 # FIXME: write more tests for this module
 
-
 def get_num_nodes_edges(adjacency_lists: list[jnp.ndarray]) -> tuple:
     """Get the number of nodes and edges for each graph.
         This function takes a list of adjacency lists and calculates the number of nodes and edges for each graph, as well as the maximum number of edges among all graphs.
@@ -71,7 +70,6 @@ def get_num_nodes_edges(adjacency_lists: list[jnp.ndarray]) -> tuple:
 
     return num_nodes, num_edges, max_edges
 
-
 def filter_adj_list_by_edge_type(
     adj_list: jnp.ndarray,
     edge_type: jnp.ndarray,
@@ -125,7 +123,6 @@ def filter_adj_list_by_edge_type(
     ]
 
     return edge_type_filtered_adj_list
-
 
 def adj_list_to_adjmatr(
     adj: jnp.ndarray,
@@ -232,7 +229,6 @@ def adj_list_to_adjmatr(
 
     return rval
 
-
 def adj_list_to_incidence(
     adj: jnp.ndarray,
     num_nodes: int,
@@ -281,7 +277,6 @@ def adj_list_to_incidence(
         rval = rval.at[src, i].set(-fill_values if directed else fill_values)
 
     return rval
-
 
 def adj_list_conversion(
     adj_list_to_matrix_fn: callable,
@@ -356,7 +351,6 @@ def adj_list_conversion(
         directed,
     )
 
-
 def bnd_count_atm_count(df: Union[ds.Dataset, pd.DataFrame]) -> dict[str, list[int]]:
     """A function to count the number of atoms and bonds for each molecule in a dataset.
 
@@ -368,7 +362,6 @@ def bnd_count_atm_count(df: Union[ds.Dataset, pd.DataFrame]) -> dict[str, list[i
     """
     num_nodes, num_edges, max_edges = get_num_nodes_edges(df["bnd_idcs"])
     return {"atm_count": num_nodes.tolist(), "bnd_count": num_edges.tolist()}
-
 
 def atm_adj(df: Union[ds.Dataset, pd.DataFrame]) -> dict[str, list[jnp.ndarray]]:
     """A function to convert the atom adjacency list to an adjacency matrix. Symmetric, since the molecule graph is undirected.
@@ -389,7 +382,6 @@ def atm_adj(df: Union[ds.Dataset, pd.DataFrame]) -> dict[str, list[jnp.ndarray]]
         ]
     }
 
-
 def atm_bnd_incid(df: Union[ds.Dataset, pd.DataFrame]) -> dict[str, list[jnp.ndarray]]:
     """A function to convert the atom-bond incidence list to an incidence matrix.
 
@@ -408,7 +400,6 @@ def atm_bnd_incid(df: Union[ds.Dataset, pd.DataFrame]) -> dict[str, list[jnp.nda
             for i in range(len(df))
         ]
     }
-
 
 def return_prob_feat(
     nb_iter: int, df: Union[ds.Dataset, pd.DataFrame]

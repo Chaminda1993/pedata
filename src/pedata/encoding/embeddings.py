@@ -4,7 +4,6 @@ import ankh
 import esm
 from typing import Iterable
 
-
 class ESM(BaseEstimator, TransformerMixin):
     """
     ESM (Evolutionary Scale Modeling) transformer for sequence transformation using a pre-trained model.
@@ -75,7 +74,6 @@ class ESM(BaseEstimator, TransformerMixin):
 
         # Return the transformed representations
         return model_outputs["representations"][6].numpy().tolist()
-
 
 class Ankh(BaseEstimator, TransformerMixin):
     """
@@ -156,7 +154,6 @@ class Ankh(BaseEstimator, TransformerMixin):
 
         # Return the transformed representations
         return embeddings["last_hidden_state"].numpy().tolist()
-
 
 class AnkhBatched(BaseEstimator, TransformerMixin):
     """

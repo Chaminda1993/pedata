@@ -1,7 +1,7 @@
 """Specify folder structure for the project"""
+
 import os
 from pathlib import Path
-
 
 path_simil = (
     Path(os.path.realpath(os.path.join(os.path.dirname(__loader__.path), "..")))
@@ -21,7 +21,6 @@ PE_CHECKPOINTS_DIR = Path(
     os.path.expanduser(os.getenv("PE_CHECKPOINTS_DIR", PE_BASE_DIR / "checkpoints"))
 )
 
-
 def get_filename(filename: str):
     """Separate file name and ending from a given filename.
 
@@ -34,7 +33,6 @@ def get_filename(filename: str):
 
     """
     return filename[:-4], filename[-4:]
-
 
 def data_exists(filename: str) -> bool:
     """Check if a file exists.

@@ -11,7 +11,6 @@ from abc import ABC, abstractmethod
 from datasets import Dataset, DatasetDict, concatenate_datasets
 from itertools import combinations
 
-
 class DatasetSplitter(ABC):
     """Dataset Splitter for random Train Test Split."""
 
@@ -285,7 +284,6 @@ class DatasetSplitter(ABC):
         else:  # if the dataset is already a train test split, yield it
             yield dataset
 
-
 class DatasetSplitterRandomTrainTest(DatasetSplitter):
     """Dataset Splitter for random Train Test Split."""
 
@@ -334,7 +332,6 @@ class DatasetSplitterRandomTrainTest(DatasetSplitter):
         })
         """
         return self._dataset.train_test_split(test_size=0.2, seed=self._seed)
-
 
 class DatasetSplitterRandomKFold(DatasetSplitter):
     """Dataset Splitter for random Train Test Split."""
@@ -410,7 +407,6 @@ class DatasetSplitterRandomKFold(DatasetSplitter):
 
         return DatasetDict(split_dataset)
 
-
 def append_split_columns_to_dataset(dataset: Dataset) -> Dataset:
     """Append all split columns to a dataset
     Args:
@@ -430,7 +426,6 @@ def append_split_columns_to_dataset(dataset: Dataset) -> Dataset:
     dataset = DatasetSplitterRandomKFold(k=k).split(dataset, return_dataset_dict=False)
 
     return dataset
-
 
 if __name__ == "__main__":
     pass

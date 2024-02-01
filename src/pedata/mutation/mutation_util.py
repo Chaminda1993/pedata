@@ -1,6 +1,5 @@
 from ..constants import Mut, Mut_with_no_targ
 
-
 def convert_tuple_to_valid_namedtuple(t: tuple):
     """
     Converts a tuple to a valid namedtuple representation based on certain criteria.

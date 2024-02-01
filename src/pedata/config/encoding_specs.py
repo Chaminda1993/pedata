@@ -50,7 +50,6 @@ from .alphabets import (
     padding_value_enc,
 )
 
-
 encodings: list[EncodingSpec] = [
     # EncodingSpec(["list", "of", "provided", "encodings"], ["list_of","required_encodings"], function_taking_dataset_and_returning_dict),
     EncodingSpec(["atm_count", "bnd_count"], ["bnd_idcs"], tg.bnd_count_atm_count),
@@ -107,9 +106,7 @@ encodings: list[EncodingSpec] = [
     SklEncodingSpec("dna_len", "dna_seq", SeqStrLen()),
 ]
 
-
 provided_encodings = [p for e in encodings for p in e.provides]
-
 
 def add_encodings(
     dataset_dict: Union[ds.DatasetDict, ds.Dataset],

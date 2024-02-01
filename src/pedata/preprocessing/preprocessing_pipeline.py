@@ -6,7 +6,6 @@ from . import append_index_column_to_dataset
 
 # from . import tag_finder
 
-
 def preprocessing_pipeline(
     dataset: Dataset,
     add_index: bool = True,

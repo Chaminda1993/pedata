@@ -12,7 +12,6 @@ import argparse
 # setting setting the __package__ attribute to solve the relative import proplem when runningn the scripts in the command line
 __package__ = "pedata.hfhub_tools"
 
-
 # ==== dataset exploration ====
 @dataclass
 class TagFeaturePattern(object):
@@ -23,7 +22,6 @@ class TagFeaturePattern(object):
     all_patterns: bool = (
         False  # whether all patterns must be present or just one of them
     )
-
 
 dstype_feature_patterns = [
     TagFeaturePattern(
@@ -41,7 +39,6 @@ target_tags_patterns = [
         tag="at_least_one_feature_named_TARGET", feature_pattern=["target"]
     ),
 ]
-
 
 def get_tag_list(
     tag_pattern: list[TagFeaturePattern], features: list[str]
@@ -71,12 +68,10 @@ def get_tag_list(
 
     return tag_list
 
-
 def save_log(filename, log_data):
     with open(Path(filename), "w") as file:
         file.write("\n".join(log_data))
     print(f"Log saved to {filename}")
-
 
 def explore_datasets(
     working_dir: str,
@@ -162,7 +157,6 @@ def explore_datasets(
 
     if delete_cache:
         shutil.rmtree(cache_dir, ignore_errors=True)
-
 
 if __name__ == "__main__":
     # parse arguments

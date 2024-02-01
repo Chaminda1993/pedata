@@ -1,10 +1,10 @@
 """ The mutation_converter module contains functions for converting a mutation object type into another type."""
+
 import numpy as np
 from ..integrity import check_mutation_namedtuple
 from ..constants import Mut
 from .mutation import Mutation
 from .mutation_util import convert_tuple_to_valid_namedtuple
-
 
 def convert_variant_mutation_to_str(
     mut: list[Mut], delimiting_char: str = "_", offset: int = 0
@@ -59,7 +59,6 @@ def convert_variant_mutation_to_str(
 
     return delimiting_char.join(tmp)
 
-
 def convert_all_variant_mutations_to_str(
     mut: list[list[Mut]], delimiting_char: str = "_", offset: int = 0
 ) -> list:
@@ -111,7 +110,6 @@ def convert_all_variant_mutations_to_str(
 
     return str_encoding
 
-
 def dict_to_namedtuple_mut(mut: list[dict[str, list]]) -> list[Mut]:
     """
     Convert a list of dictionaries with 'position', 'source', and 'target' keys
@@ -150,7 +148,6 @@ def dict_to_namedtuple_mut(mut: list[dict[str, list]]) -> list[Mut]:
         mut_list.append(Mut(pos, src, targ))
 
     return mut_list
-
 
 def namedtuple_to_dict_mut(mut_list: list[Mut]) -> list[dict[str, list]]:
     """

@@ -3,7 +3,6 @@ from datasets import (
     Dataset,
 )
 
-
 def append_index_column_to_dataset(dataset: Dataset) -> Dataset:
     """Add an index column to the dataset
     Args:

@@ -8,7 +8,6 @@ from huggingface_hub import (
 )
 from .constants import README_FORMATTING
 
-
 class ReadMe:
     """A class to handle the readme file"""
 
@@ -184,7 +183,6 @@ class ReadMe:
 
         def make_relative_path(base_path, target_path):
             return os.path.relpath(target_path, os.path.dirname(base_path))
-
         if figure_path is None:
             raise ValueError("readme_path must be specified")
 
@@ -222,7 +220,6 @@ class ReadMe:
             repo_id=self.repo_id,
             repo_type=self.repo_type,
         )
-
 
 if __name__ == "__main__":  # FIXME: write command line tool for this
     pass
