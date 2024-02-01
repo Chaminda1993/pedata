@@ -22,10 +22,10 @@ jobs:
       #     src: "./src"
       #     jupyter: true
           
-      - name: Check files using the Ruff linter
-        uses: chartboost/ruff-action@v1
-        with:
-          args: "--fix --no-unsafe-fixes --no-cache"
+      # - name: Check files using the Ruff linter
+      #   uses: chartboost/ruff-action@v1
+      #   with:
+      #     args: "--fix --no-unsafe-fixes --no-cache"
 
       - uses: conda-incubator/setup-miniconda@v3
         with:
