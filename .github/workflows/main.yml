@@ -14,6 +14,19 @@ jobs:
       - name: Checkout code...
         uses: actions/checkout@v3
 
+      - name: Check files using the black formatter
+        id: action_black
+        uses: psf/black@stable
+        with:
+          options: "--pyi --safe --verbose"
+          src: "./src"
+          jupyter: true
+          
+      - name: Check files using the Ruff linter
+        uses: chartboost/ruff-action@v1
+        with:
+          args: "--fix --no-unsafe-fixes --no-cache"
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
