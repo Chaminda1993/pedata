@@ -24,4 +24,3 @@ jobs:
           extensions: pytest-asyncio pytest-cov
           options: -vv -s
           output: test-summary.md
-          paths: test/**.py
