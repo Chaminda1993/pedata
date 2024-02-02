@@ -58,7 +58,10 @@ jobs:
           pip install pytest pytest-cov pytest-html
           pip install datasets==2.15.0
           pip list
-          pytest -s -v test --junit-xml=test-results.xml
+          pytest -s -v test \
+              --junit-xml=test-results.xml \
+              --cov-report=term-missing:skip-covered \
+              --cov=app | tee pytest-coverage.txt
 
       # Comment test result on commmit
       # - name: Publish Test Results
@@ -70,11 +73,13 @@ jobs:
       #   uses: pmeier/pytest-results-action@main
       #   with:
       #     path: test-results.xml
-      - name: Publish Test Results
-        uses: kcjpop/coverage-comments@v2.2
+      - name: Pytest coverage comment
+        uses: MishaKav/pytest-coverage-comment@main
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          coverage-file: 'test-results.xml'
+          pytest-coverage-path: ./pytest-coverage.txt
+          junitxml-path: ./test-results.xml
+          default-branch: main
+        
 
       # Commit & push changes
       - name: Check for modified files
