@@ -4,7 +4,7 @@ from pedata import (
 )
 
 
-def test_regr_dataset_get_full_dataset():
+def test_regr_dataset_get_full_dataset        ()                  :
     """Test that the Regression Dataset has all needed attributes and encodings"""
     TestRegressionData = RegressionToyDataset()
     assert hasattr(TestRegressionData, "train")
