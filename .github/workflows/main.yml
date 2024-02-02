@@ -9,7 +9,12 @@ on:
       - main
 jobs:
   run:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.11"]
+
     steps:
       # Checkout codebase
       - name: Checkout code...
@@ -33,15 +38,16 @@ jobs:
           args: "--fix --no-unsafe-fixes --no-cache"
 
       # Setup Python environtment & Run PyTest
-      - uses: actions/setup-python@v5
+      - name: Setup & execute PyTest
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: ${{ matrix.python-version }}
           cache: 'pip'
       - run: |
           pip install .
           pip install pytest pytest-cov pytest-html
           pip install datasets==2.15.0
-          conda list
+          pip list
           pytest -s -v test --junit-xml=test-results.xml
 
       # Comment test result on commmit
