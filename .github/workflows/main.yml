@@ -58,10 +58,7 @@ jobs:
           pip install pytest pytest-cov pytest-html
           pip install datasets==2.15.0
           pip list
-          pytest -s -v \
-              --junit-xml=test-results.xml \
-              --cov-report=term-missing:skip-covered \
-              --cov=app test/ | tee pytest-coverage.txt
+          pytest -s -v --junitxml=test-results.xml --cov-report=term-missing:skip-covered --cov=app test/ | tee pytest-coverage.txt
 
       # Comment test result on commmit
       # - name: Publish Test Results
