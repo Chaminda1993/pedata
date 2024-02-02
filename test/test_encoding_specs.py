@@ -101,12 +101,13 @@ if False:
 
 
 def test_add_encodings_atm_type():  # Test case 4: BACE Dataset
-  dataset = read_dataset_from_file(
+  dataset = read_dataset_from_file
+  (
       "src/pedata/static/example_data/small_mol_ds.parquet",
   )
   needed = ["atm_count"]
-  encoded = add_encodings(dataset.with_format("numpy"), needed)
-  assert all(column in list(encoded.features.keys()) for column in needed)
+  encoded = add_encodings       (dataset.with_format("numpy"), needed)
+  assert all(column in list     (encoded.features.keys()) for column in needed)
 
 
 def test_add_encodings_smiles():
