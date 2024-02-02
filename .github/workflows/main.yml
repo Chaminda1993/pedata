@@ -27,7 +27,7 @@ jobs:
       - name: Checkout code...
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       # Black formatter execution
       - name: Check files using the black formatter
@@ -63,9 +63,7 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
           files: |
-              test-results/**/*.xml
-              test-results/**/*.trx
-              test-results/**/*.json
+              test-results.xml
 
       # Comment test result on commmit
       - name: Surface failing tests
@@ -88,5 +86,5 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           branch: ${{ github.head_ref }}
-          github_token: ${{ secrets.ACCESS_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           force: true
