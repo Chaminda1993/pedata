@@ -28,7 +28,7 @@ jobs:
       - name: Checkout code...
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
 
       # Black formatter execution
       - name: Check files using the black formatter
@@ -58,7 +58,7 @@ jobs:
           pip install pytest pytest-cov pytest-html
           pip install datasets==2.15.0
           pip list
-          pytest -s -v --junitxml=test-results.xml --cov-report=term-missing:skip-covered --cov=app test/ | tee pytest-coverage.txt
+          pytest -s -v test --junitxml=test-results.xml
 
       # Comment test result on commmit
       # - name: Publish Test Results
@@ -70,12 +70,11 @@ jobs:
       #   uses: pmeier/pytest-results-action@main
       #   with:
       #     path: test-results.xml
-      - name: Pytest coverage comment
-        uses: MishaKav/pytest-coverage-comment@main
+      - name: Coverage comment
+        id: coverage_comment
+        uses: py-cov-action/python-coverage-comment-action@v3
         with:
-          pytest-coverage-path: ./pytest-coverage.txt
-          junitxml-path: ./test-results.xml
-          default-branch: main
+          GITHUB_TOKEN: ${{ github.token }}
         
 
       # Commit & push changes
@@ -93,5 +92,5 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           branch: ${{ github.head_ref }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
           force: true
