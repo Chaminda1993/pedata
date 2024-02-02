@@ -60,7 +60,7 @@ class OptimizationObjective:
     aim_for: np.float16 | None = None  # target value for direction == 'fix'
     weight: np.uint8 = np.uint8(1)  # weight for the objective
 
-def load_full_dataset   (  dataset_name     : str) -> Dataset:
+def load_full_dataset(dataset_name: str) -> Dataset:
     """
     Load a full dataset rather than a specific split of the dataset
     Args:
@@ -68,8 +68,8 @@ def load_full_dataset   (  dataset_name     : str) -> Dataset:
     Returns:
         full_dataset: The full dataset
     """
-    dataset      = load_dataset(dataset_name)
-    full_dataset = concatenate_datasets     ([dataset[split] for split in dataset])
+    dataset = load_dataset(dataset_name)
+    full_dataset = concatenate_datasets([dataset[split] for split in dataset])
     return full_dataset
 
 def get_target_columns(dataset: ds.Dataset) -> Sequence[str]:
