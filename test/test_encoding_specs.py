@@ -90,14 +90,14 @@ def needed_encodings():
     return ["aa_len", "aa_1hot"]
 
 
-if False:
+# if False:
 
-    def test_add_encodings_atm_type_previous():
-        # Test case 4: BACE Dataset
-        dataset = load_dataset("Company/BACE", split="train")
-        needed = ["atm_count"]
-        encoded = add_encodings(dataset.with_format("numpy"), needed)
-        assert all(column in list(encoded.features.keys()) for column in needed)
+#     def test_add_encodings_atm_type_previous():
+#         # Test case 4: BACE Dataset
+#         dataset = load_dataset("Company/BACE", split="train")
+#         needed = ["atm_count"]
+#         encoded = add_encodings(dataset.with_format("numpy"), needed)
+#         assert all(column in list(encoded.features.keys()) for column in needed)
 
 
 def test_add_encodings_atm_type():  # Test case 4: BACE Dataset
