@@ -21,7 +21,7 @@ def  test_with_unnecessary_semicolons():
   x = 10; y = 20;  # Unnecessary semicolons
 
 def  test_with_mixed_single_and_double_quotes():
-  print("This is a string with 'single' and "double" quotes")  # Inconsistent quotes
+  print("This is a string with 'single' and  quotes")  # Inconsistent quotes
 
 def  test_with_extra_blank_lines():
 
