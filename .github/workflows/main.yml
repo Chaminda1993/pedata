@@ -61,21 +61,10 @@ jobs:
           pytest -s -v test --junitxml=test-results.xml
 
       # Comment test result on commmit
-      # - name: Publish Test Results
-      #   uses: EnricoMi/publish-unit-test-result-action@v2
-      #   with:
-      #     files: |
-      #         test-results.xml
-      # - name: Surface failing tests
-      #   uses: pmeier/pytest-results-action@main
-      #   with:
-      #     path: test-results.xml
-      - name: Coverage comment
-        id: coverage_comment
-        uses: py-cov-action/python-coverage-comment-action@v3
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          GITHUB_TOKEN: ${{ github.token }}
-        
+          files: test-results.xml     
 
       # Commit & push changes
       - name: Check for modified files
