@@ -72,9 +72,9 @@ jobs:
       #     path: test-results.xml
       - name: Publish Test Results
         uses: kcjpop/coverage-comments@v2.2
-+       with:
-+         github-token: ${{ secrets.GITHUB_TOKEN }}
-+         coverage-file: 'test-results.xml'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          coverage-file: 'test-results.xml'
 
       # Commit & push changes
       - name: Check for modified files
