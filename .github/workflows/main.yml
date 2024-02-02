@@ -25,7 +25,7 @@ jobs:
 
     steps:
       # Checkout codebase
-      - name: Checkout code...
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           token: ${{ github.token }}
