@@ -1,7 +1,7 @@
 name: Lint & PyTest on action
 permissions:
-  contents: read
   issues: read
+  contents: write
   checks: write
   pull-requests: write
 
