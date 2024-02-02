@@ -18,7 +18,8 @@ def  test_missing_spaces_around_operators():
   y=x*2
 
 def  test_with_unnecessary_semicolons():
-  x = 10; y = 20;  # Unnecessary semicolons
+  x = 10; 
+  y = 20;  # Unnecessary semicolons
 
 def  test_with_mixed_single_and_double_quotes():
   print("This is a string with 'single' and  quotes")  # Inconsistent quotes
