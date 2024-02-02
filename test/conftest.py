@@ -4,7 +4,7 @@ from datasets import Dataset
 
 
 @fixture(scope="module")
-def regr_dataset_train      (needed_encodings           : list[                     str]                                                     ) -> Dataset:
+def regr_dataset_train(needed_encodings: list[str]) -> Dataset:
     """Regression dataset - train split
     Args:
         needed_encodings (list): list of encodings needed for the model. Default: []
@@ -20,7 +20,7 @@ def regr_dataset_train      (needed_encodings           : list[                 
         ... "your function here"
         regr_dataset_train will use needed_encodings
     """
-    ds                                  = RegressionToyDataset(                                                 needed_encodings)
+    ds = RegressionToyDataset(needed_encodings)
     return ds.train
 
 
