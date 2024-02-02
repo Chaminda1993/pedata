@@ -1,4 +1,10 @@
 name: Lint & PyTest on action
+permissions:
+  contents: read
+  issues: read
+  checks: write
+  pull-requests: write
+
 on: 
   pull_request:
     types:
@@ -7,6 +13,7 @@ on:
   push:  
     branches:
       - main
+
 jobs:
   run:
     runs-on: ${{ matrix.os }}
@@ -37,7 +44,7 @@ jobs:
         with:
           args: "--fix --no-unsafe-fixes --no-cache"
 
-      # Setup Python environtment
+      # Setup Python environtment & PyTest
       - name: Setup & execute PyTest
         uses: actions/setup-python@v5
         with:
@@ -51,6 +58,14 @@ jobs:
           pip install datasets==2.15.0
           pip list
           pytest -s -v test --junit-xml=test-results.xml
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: |
+              test-results/**/*.xml
+              test-results/**/*.trx
+              test-results/**/*.json
 
       # Comment test result on commmit
       - name: Surface failing tests
