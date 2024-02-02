@@ -37,13 +37,15 @@ jobs:
         with:
           args: "--fix --no-unsafe-fixes --no-cache"
 
-      # Setup Python environtment & Run PyTest
+      # Setup Python environtment
       - name: Setup & execute PyTest
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-      - run: |
+      
+      - name: Configure dependancies & Run PyTest
+        run: |
           pip install .
           pip install pytest pytest-cov pytest-html
           pip install datasets==2.15.0
