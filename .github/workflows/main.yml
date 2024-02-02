@@ -1,7 +1,7 @@
 name: Lint & PyTest on action
 permissions:
-  contents: read
   issues: read
+  contents: write
   checks: write
   pull-requests: write
 
@@ -46,7 +46,7 @@ jobs:
           args: "--fix --no-unsafe-fixes --no-cache"
 
       # Setup Python environtment & PyTest
-      - name: Setup & execute PyTest
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
