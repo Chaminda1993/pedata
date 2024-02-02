@@ -10,6 +10,7 @@ on:
     types:
       - opened
       - reopened
+      - synchronize
   push:  
     branches:
       - main
@@ -69,6 +70,10 @@ jobs:
       #   uses: pmeier/pytest-results-action@main
       #   with:
       #     path: test-results.xml
+      - uses: kcjpop/coverage-comments@v2.2
++        with:
++          github-token: ${{ secrets.GITHUB_TOKEN }}
++          coverage-file: 'test-results.xml'
 
       # Commit & push changes
       - name: Check for modified files
